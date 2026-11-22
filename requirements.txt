@@ -1,0 +1,6 @@
+fastmcp>=4.2.4
+httpx>=0.28.0
+uvicorn>=0.30.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+starlette>=0.40.0
