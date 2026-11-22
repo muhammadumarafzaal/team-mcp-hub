@@ -1,0 +1,31 @@
+services:
+  remote-mcpserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: remote-mcpserver:latest
+    container_name: remote-mcpserver
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SERVER_NAME=Remote MCP Server
+      - AUTH_TOKEN=${AUTH_TOKEN:-}
+      - AUTH_TOKENS=${AUTH_TOKENS:-}
+      - TRANSPORT=sse
+      - DATA_DIR=/app/data
+      - LOG_LEVEL=info
+    volumes:
+      - mcp_data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  mcp_data:
+    driver: local

@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: remote-mcpserver
+    runtime: python
+    buildCommand: uv sync --frozen --no-dev
+    startCommand: uv run uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.12"
+      - key: SERVER_NAME
+        value: "Team Remote MCP Server"
+      - key: TRANSPORT
+        value: "sse"
+      - key: AUTH_TOKEN
+        generateValue: true
+      - key: DATA_DIR
+        value: "/var/data"
+    disk:
+      name: mcp-data
+      mountPath: /var/data
+      sizeGB: 1
+    healthCheckPath: /health

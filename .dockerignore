@@ -1,0 +1,20 @@
+# Git & Environment
+.git
+.gitignore
+.env
+.env.*
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Data Storage
+data/
+*.log
